@@ -6,6 +6,7 @@ import io.sampleprojects.spring.rbac.service.GroupUserDetailsService;
 import java.security.Principal;
 import javax.xml.bind.ValidationException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,6 +30,7 @@ public class UserController {
   }
 
   @PutMapping("/{username}/roles/add-role")
+  @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAnyAuthority('ROLE_MODERATOR')")
   public String addRole(@PathVariable String username, @RequestBody AddUserRoleRequest addUserRoleRequest, Principal principal) {
     try {
       service.addUserRoles(addUserRoleRequest, username, principal);

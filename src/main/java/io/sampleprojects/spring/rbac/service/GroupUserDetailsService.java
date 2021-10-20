@@ -1,11 +1,16 @@
 package io.sampleprojects.spring.rbac.service;
 
+import static io.sampleprojects.spring.rbac.common.Constants.ADMIN_AUTHORIZED_TO_ADD_ROLES;
+import static io.sampleprojects.spring.rbac.common.Constants.DEFAULT_ROLE_USER;
+import static io.sampleprojects.spring.rbac.common.Constants.MODERATOR_AUTHORIZED_TO_ADD_ROLES;
+import static io.sampleprojects.spring.rbac.common.Constants.ROLE_ADMIN;
+import static io.sampleprojects.spring.rbac.common.Constants.ROLE_MODERATOR;
+
 import io.sampleprojects.spring.rbac.dto.AddUserRoleRequest;
 import io.sampleprojects.spring.rbac.entity.User;
 import io.sampleprojects.spring.rbac.repository.UserRepository;
 import java.security.Principal;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.xml.bind.ValidationException;
@@ -14,19 +19,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 @AllArgsConstructor
 public class GroupUserDetailsService implements UserDetailsService {
 
   private final UserRepository repository;
   private final BCryptPasswordEncoder passwordEncoder;
-
-  private final static String DEFAULT_ROLE_USER = "ROLE_USER";
-  private final static String ROLE_ADMIN = "ROLE_ADMIN";
-  private final static String ROLE_MODERATOR = "ROLE_MODERATOR";
-  private final static List<String> ADMIN_AUTHORIZED_TO_ADD_ROLES = Arrays.asList(ROLE_ADMIN, ROLE_MODERATOR);
-  private final static List<String> MODERATOR_AUTHORIZED_TO_ADD_ROLES = Collections.singletonList(ROLE_MODERATOR);
-
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
