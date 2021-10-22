@@ -24,7 +24,7 @@ public class UserController {
   @PostMapping
   public String joinGroup(@RequestBody User user) {
 
-    service.save(user);
+    service.createUser(user);
 
     return "Hi, " + user.getUsername() + "! Welcome to the group.";
   }

@@ -38,7 +38,7 @@ public class GroupUserDetailsService implements UserDetailsService {
 
   }
 
-  public void save(User user) {
+  public void createUser(User user) {
     user.setRoles(DEFAULT_ROLE_USER);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     repository.save(user);
