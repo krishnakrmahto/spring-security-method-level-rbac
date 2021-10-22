@@ -13,6 +13,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
 import javax.xml.bind.ValidationException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,6 +44,7 @@ public class GroupUserDetailsService implements UserDetailsService {
     repository.save(user);
   }
 
+  @Transactional
   public void addUserRoles(AddUserRoleRequest request, String username, Principal principal)
       throws ValidationException {
     List<String> loggedInUserRoles = getLoggedInUserRoles(principal);

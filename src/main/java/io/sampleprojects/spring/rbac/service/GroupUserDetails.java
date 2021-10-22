@@ -37,12 +37,12 @@ public class GroupUserDetails implements UserDetails {
 
   @Override
   public boolean isAccountNonLocked() {
-    return false;
+    return user.isActive();
   }
 
   @Override
   public boolean isCredentialsNonExpired() {
-    return false;
+    return true;
   }
 
   @Override
